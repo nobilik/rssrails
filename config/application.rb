@@ -23,5 +23,6 @@ module Rssrails
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.api_host = ENV['API_HOST'] || "http://127.0.0.1:2345"
   end
 end

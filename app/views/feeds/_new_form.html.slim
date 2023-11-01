@@ -1,0 +1,18 @@
+= form_with(model: @feed, local: true, html: { class: 'form' }) do |form|
+  - if @errors.any?
+    .alert.alert-danger
+      h2 = "#{pluralize(@errors.count, "error")} prohibited this feed from being saved:"
+      ul
+        - @errors.each do |error|
+          li = error
+
+  .form-group
+    = form.label :urls
+    = form.text_area :urls, rows: 10, class: 'form-control'
+    small.text-muted
+      |
+        insert multiple URLs, separated by spaces, commas or new lines.
+
+  .form-group
+    = form.submit 'Save', class: 'btn btn-success'
+

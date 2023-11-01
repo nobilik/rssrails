@@ -1,0 +1,15 @@
+= form_with(model: feed, local: true, html: { class: 'form' }) do |form|
+  - if feed.errors.any?
+    .alert.alert-danger
+      h2 = "#{pluralize(feed.errors.count, 'error')} prohibited this feed from being saved:"
+      ul
+        - feed.errors.each do |error|
+          li = error.full_message
+
+  .form-group
+    = form.label :url, class: 'control-label'
+    = form.text_field :url, class: 'form-control'
+    br
+  .form-group
+    = form.submit 'Save', class: 'btn btn-success'
+

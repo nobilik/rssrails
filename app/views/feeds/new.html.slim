@@ -1,0 +1,9 @@
+div.container
+  h1 New feed
+
+  == render "new_form", feed: @feed
+
+  br
+
+  div
+    = link_to "Back to feeds", feeds_path, class: "btn btn-primary"

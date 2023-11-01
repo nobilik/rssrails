@@ -1,0 +1,25 @@
+p style="color: green" = notice
+
+.row
+  .col-md-8
+    h1 Feeds
+  .col-md-4.text-right
+    = link_to "New feed", new_feed_path, class: "btn btn-success"
+
+table.table.table-bordered
+  thead
+    tr
+      th URL
+      th Actions
+  tbody#feeds
+    - @feeds.each do |feed|
+      tr
+        td == feed.url
+        td.d-flex.justify-content-start.gap-3
+          = link_to "Show", feed, class: "btn btn-primary btn-sm"
+          = link_to "Edit", edit_feed_path(feed), class: "btn btn-secondary btn-sm" 
+          = button_to "Delete", feed, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" 
+
+
+
+
