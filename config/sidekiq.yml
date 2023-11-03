@@ -3,3 +3,9 @@
 :concurrency: 1
 :queues:
   - default
+
+:scheduler:
+  :schedule:
+    post_fetcher:
+      cron: '0 * * * * *' # Runs once per minute
+      class: PostFetcherJob

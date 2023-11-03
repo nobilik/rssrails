@@ -29,8 +29,10 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 gem "redis", ">= 4.0.1"
 gem 'sidekiq', '~> 7.2'
-gem 'sidekiq-cron', '~> 1.10', '>= 1.10.1'
+# gem 'sidekiq-cron', github: 'ondrejbartas/sidekiq-cron', branch: :"next-realise"
+gem 'sidekiq-scheduler'
 
+# gem 'pg'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -50,6 +52,7 @@ gem 'slim-rails', '~> 3.6', '>= 3.6.3'
 gem 'bootstrap', '~> 5.3.2'
 gem 'sassc-rails', '>= 2.1.0'
 gem 'will_paginate', '~> 4.0'
+gem 'mini_racer'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

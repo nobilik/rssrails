@@ -1,0 +1,39 @@
+version: "3.7"
+services:
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile.sidekiq
+    volumes:
+      - ./db:/db
+      - redis-data:/data
+    environment:
+      - REDIS_URL=redis://redis-db:6379/0
+      - DATABASE_URL=sqlite3:/db/production.sqlite3
+      - API_HOST=http://192.168.1.106:2345
+    depends_on:
+      - redis-db
+      - web
+    image: sidekiq
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./db:/db
+      - redis-data:/data
+    environment:
+      - REDIS_URL=redis://redis-db:6379/0
+      - DATABASE_URL=sqlite3:/db/production.sqlite3
+    depends_on:
+      - redis-db
+    image: web
+
+  redis-db:
+    image: redis
+volumes:
+  db:
+  redis-data:

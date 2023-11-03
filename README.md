@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+We have 3 pages:
 
-Things you may want to cover:
+Feeds - you can manage sources
+RSS - it's full list of currently existed posts in sources stored in Redis
+Archive - here you can manage stored posts in db // but if you delete post that still exists in RSS souce it will appear again
+// can be solved with soft delete for example
 
-* Ruby version
+program makes requests every minute to ENV['API_HOST'] || "http://127.0.0.1:2345"
+where back runs
+If starts with docker specify the API_HOST in docker compose before running
 
-* System dependencies
+rails db:migrate RAILS_ENV="production" // sorry
 
-* Configuration
+prebuild base image
+docker build -t rails_rss_base:0.1 .
+then
+start with docker-compose up --build
 
-* Database creation
+or
+// redis server required
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. rails server
+2. sidekiq -C config/sidekiq.yml
