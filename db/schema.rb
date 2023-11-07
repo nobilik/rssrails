@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_31_122223) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_06_194001) do
   create_table "feeds", force: :cascade do |t|
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["url"], name: "index_feeds_on_url", unique: true
   end
 
   create_table "rss_items", force: :cascade do |t|
@@ -26,7 +27,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_31_122223) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["link", "source_url", "publish_date"], name: "index_rss_items_on_link_and_source_url_and_publish_date", unique: true
+    t.integer "feed_id"
+    t.index ["feed_id", "link", "publish_date"], name: "index_rss_items_on_feed_id_and_link_and_publish_date", unique: true
   end
 
 end

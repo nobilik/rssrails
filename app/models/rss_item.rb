@@ -1,11 +1,6 @@
+# app/models/rss_item.rb
 class RssItem < ApplicationRecord
-    def self.save_to_db(json_posts)
-        posts = JSON.parse(json_posts)
-        posts.each do |post|
-        item = RssItem.new(post)
-        item.save
-        rescue
-            next
-        end
-    end
+  belongs_to :feed
+  validates :feed_id, presence: true
+  validates :link, uniqueness: { scope: %i[feed_id publish_date] }
 end

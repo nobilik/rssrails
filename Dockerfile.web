@@ -1,7 +1,0 @@
-FROM rails_rss_base:0.1
-
-# ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-
-# RUN bundle exec rails db:migrate
-EXPOSE 3000
-CMD bundle exec rails server

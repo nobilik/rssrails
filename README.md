@@ -1,25 +1,40 @@
-# README
+# RSS Reader Web Application
 
-We have 3 pages:
+The RSS Reader Web Application is a web interface for managing RSS feed sources, viewing a full list of currently existing posts from these sources, and managing archived posts. It consumes data from the [RSSReaderService](https://github.com/nobilik/bgwork/RSSReaderService) API.
 
-Feeds - you can manage sources
-RSS - it's full list of currently existed posts in sources stored in Redis
-Archive - here you can manage stored posts in db // but if you delete post that still exists in RSS souce it will appear again
-// can be solved with soft delete for example
+## Pages
 
-program makes requests every minute to ENV['API_HOST'] || "http://127.0.0.1:2345"
-where back runs
-If starts with docker specify the API_HOST in docker compose before running
+### Feeds
 
-rails db:migrate RAILS_ENV="production" // sorry
+The Feeds page allows you to manage your RSS feed sources. You can add new sources, edit existing ones, or remove sources that you no longer wish to follow.
 
-prebuild base image
-docker build -t rails_rss_base:0.1 .
-then
-start with docker-compose up --build
+### Archive
 
-or
-// redis server required
+In the Archive section, you can manage archived posts. Be aware that if you delete a post that still exists in an RSS source, it may reappear in the RSS page. Implementing a soft delete mechanism could be a solution to prevent this from happening.
 
-1. rails server
-2. sidekiq -C config/sidekiq.yml
+## Getting Started
+
+1. Dockerized
+   Before start make sure that this app and backend are in one folder next to each other. E.g. parent->rssrails and parent->RSSReaderService
+   Start the application using Docker Compose:
+
+```bash
+docker-compose up --build
+```
+
+it will starts frontend and backend together.
+
+2. Without Docker
+
+   1. Before running the RSS Reader Web Application, ensure that the [RSSReaderService](https://github.com/nobilik/bgwork/RSSReaderService) API is up and running. The web application makes requests to this API every minute.
+
+   2. rails server
+   3. sidekiq -C config/sidekiq.yml
+
+3. After this open app in your browser http://localhost:3000
+
+### License
+
+This package is licensed under the MIT License.
+
+## This package is created for testing purposes and not maintained

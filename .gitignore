@@ -76,7 +76,7 @@ package-lock.json
 # Ignore any user-specific settings files.
 /.ruby-version
 /.ruby-gemset
-
+/.tool-versions
 # Ignore pids and socket files for Unicorn/Puma/other app servers.
 /tmp/pids/
 /tmp/sockets/
@@ -103,3 +103,4 @@ package-lock.json
 # Ignore Ctags files.
 /tags
 
+.solargraph.yml

@@ -1,39 +1,50 @@
 version: "3.7"
+networks:
+  isolation-network:
+    driver: bridge
 services:
   sidekiq:
-    build:
-      context: .
-      dockerfile: Dockerfile.sidekiq
     volumes:
       - ./db:/db
       - redis-data:/data
     environment:
       - REDIS_URL=redis://redis-db:6379/0
       - DATABASE_URL=sqlite3:/db/production.sqlite3
-      - API_HOST=http://192.168.1.106:2345
+      - API_HOST=http://rss_service:2345
     depends_on:
       - redis-db
-      - web
-    image: sidekiq
-
+      - rss_service
+    image: web
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    networks:
+      - isolation-network
   web:
     build:
-      context: .
-      dockerfile: Dockerfile.web
+      context: ../
+      dockerfile: rssrails/Dockerfile
     ports:
       - "3000:3000"
     volumes:
       - ./db:/db
       - redis-data:/data
     environment:
-      - REDIS_URL=redis://redis-db:6379/0
       - DATABASE_URL=sqlite3:/db/production.sqlite3
-    depends_on:
-      - redis-db
     image: web
-
+    networks:
+      - isolation-network
+  rss_service:
+    environment:
+      - API_PORT=2345
+    ports:
+      - "2345:2345"
+    networks:
+      - isolation-network
+    image: web
+    command: ../rss_service
   redis-db:
     image: redis
+    networks:
+      - isolation-network
 volumes:
   db:
   redis-data:

@@ -30,11 +30,11 @@ describe 'rss app', type: :system do
 
   it 'should visit feeds new with bad url' do
     visit '/feeds/new'
-    element = find(:css, "textarea[id$='feed_urls']")  
+    element = find(:css, "textarea[id$='feed_urls']")
     element.fill_in with: 'http://feeds.bbci.co.uk/news/world/rss.xml,
 		dsvsvrbrbrb'
     click_button 'Save'
 
-    expect(page).to have_content('error prohibited this feed from being saved')
+    expect(page).to have_content('The following errors prevented some feeds from being saved')
   end
 end

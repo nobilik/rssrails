@@ -1,3 +1,0 @@
-FROM rails_rss_base:0.1
-
-CMD bundle exec sidekiq -C config/sidekiq.yml

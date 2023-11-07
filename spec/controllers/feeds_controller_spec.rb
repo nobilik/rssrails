@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe FeedsController, type: :controller do
   let(:valid_attributes) { { url: 'http://example.com/feed' } }
-  let(:valid_creation_attributes) { {  urls: 'http://example.com/feed, https://techcrunch.com/rssfeeds' } }
-  let(:invalid_creation_attributes) { {  urls: '' } }
+  let(:valid_creation_attributes) { { urls: 'http://example.com/feed, https://techcrunch.com/rssfeeds' } }
+  let(:invalid_creation_attributes) { { urls: '' } }
 
   describe 'GET #index' do
     it 'assigns all feeds to @feeds' do
@@ -39,9 +39,9 @@ describe FeedsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new feeds' do
-        expect {
+        expect do
           post :create, params: { feed: valid_creation_attributes }
-        }.to change(Feed, :count).by(valid_creation_attributes[:urls].split(/[,;\s\n\t\r\f\v]+/).length)
+        end.to change(Feed, :count).by(valid_creation_attributes[:urls].split(/[,;\s\n\t\r\f\v]+/).length)
       end
 
       it 'redirects to the feed index' do
@@ -51,7 +51,7 @@ describe FeedsController, type: :controller do
     end
 
     context 'with invalid params' do
-       it 'redirects to the feed index' do
+      it 'redirects to the feed index' do
         post :create, params: { feed: invalid_creation_attributes }
         expect(response).to render_template('new')
       end
@@ -78,9 +78,9 @@ describe FeedsController, type: :controller do
   describe 'DELETE #destroy' do
     it 'destroys the requested feed' do
       feed = Feed.create!(valid_attributes)
-      expect {
+      expect do
         delete :destroy, params: { id: feed.to_param }
-      }.to change(Feed, :count).by(-1)
+      end.to change(Feed, :count).by(-1)
     end
 
     it 'redirects to the feeds list' do

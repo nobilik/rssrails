@@ -6,6 +6,6 @@
 
 :scheduler:
   :schedule:
-    post_fetcher:
+    fetcher:
       cron: '0 * * * * *' # Runs once per minute
-      class: PostFetcherJob
+      class: FetcherJob
